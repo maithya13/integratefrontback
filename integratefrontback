@@ -1,0 +1,44 @@
+// Example of registering a user
+async function registerUser(userData) {
+  try {
+    const response = await fetch('http://localhost:5000/api/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      console.log('User registered:', data);
+    } else {
+      console.error('Error:', data);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+// Example of booking an appointment
+async function bookAppointment(appointmentData) {
+  try {
+    const response = await fetch('http://localhost:5000/api/appointments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`, // Include token if necessary
+      },
+      body: JSON.stringify(appointmentData),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      console.log('Appointment booked:', data);
+    } else {
+      console.error('Error:', data);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
